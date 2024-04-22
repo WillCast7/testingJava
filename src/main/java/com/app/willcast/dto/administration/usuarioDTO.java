@@ -10,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
+@Builder //Implementa el patron de diseño Builder
 public class usuarioDTO implements Serializable {
     private Long usuario_id;
     private String usuario_correo;

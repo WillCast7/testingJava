@@ -1,20 +1,30 @@
 package com.app.willcast.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/usuario-contrasena")
+@PreAuthorize("denyAll()")
 public class testAuthController {
 
-    @GetMapping("/hello")
+    @GetMapping("/todos")
+    @PreAuthorize("permitAll()")
     public String hello(){
-        return  "Hello world";
+        return  "funciona con usuario y contraseña - Valor retornado para todos";
     }
 
-    @GetMapping("/hello-secured")
-    public String helloSecured(){
-        return  "Hello world-secured";
+    @GetMapping("/permiso-lectura")
+    @PreAuthorize("hasAuthority('READ')")
+    public String permisoLectura(){
+        return  "funciona con usuario y contraseña  - Valor retornado si el usuario tiene permiso de lectura";
+    }
+
+    @GetMapping("/permiso-escritura")
+    @PreAuthorize("hasAuthority('CREATE')")
+    public String permisoEscritura(){
+        return  "funciona con usuario y contraseña  - Valor retornado si el usuario tiene permiso de escritura";
     }
 }

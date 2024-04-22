@@ -11,6 +11,7 @@ import java.util.Date;
 public class WillcastApplication {
 
 	public static void main(String[] args) {
+		//Crear usuario bajo el el patron de diseño BUILDER
 		usuarioDTO usuario = usuarioDTO.builder()
 				.usuario_correo("usuario@correo.com")
 				.usuario_contrasena("contraseña123")
