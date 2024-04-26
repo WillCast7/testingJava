@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -12,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class RolesEntity implements Serializable {
+public class RoleEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -20,4 +22,8 @@ public class RolesEntity implements Serializable {
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEmum;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<PermissionEntity> permissionList =new HashSet<>();
 }

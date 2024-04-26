@@ -18,7 +18,6 @@ public class PermissionEntity implements Serializable {
     private Long Id;
 
     @Column(unique = true, nullable = false, updatable = false)
-    //@Enumerated(EnumType.STRING)
     private String name;
 
 }
