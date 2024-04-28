@@ -1,5 +1,6 @@
 package com.app.willcast.config;
 
+import com.app.willcast.service.impl.UserDetailServiceImpl;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -73,40 +74,17 @@ public class securityConfig {
 
     //Authentication provider
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider(UserDetailServiceImpl userDetailService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailService);
         return provider;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        List<UserDetails> userDetailsList = new ArrayList<>();
 
-        userDetailsList.add(User.withUsername("willcast")
-                .password("1234567")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
-
-        userDetailsList.add(User.withUsername("elPepe")
-                .password("1234567")
-                .roles("ADMIN")
-                .authorities("READ")
-                .build());
-         
-        userDetailsList.add(User.withUsername("eteESech")
-                .password("1234567")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

@@ -5,6 +5,7 @@ import com.app.willcast.dto.administration.usuarioDTO;
 import com.app.willcast.model.entity.PermissionEntity;
 import com.app.willcast.model.entity.RoleEntity;
 import com.app.willcast.model.entity.RoleEnum;
+import com.app.willcast.model.entity.UserEntity;
 import com.app.willcast.model.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -67,18 +69,47 @@ public class WillcastApplication {
 					.build();
 
 			/*CREATE USER*/
-			usuarioDTO userWill = usuarioDTO.builder()
-					.usuario_correo("usuario@correo.com")
-					.usuario_contrasena("1234")
-					.Persona_id(1)
-					.creadopor(2)
-					.fcreacion(new Date())
-					.actualizadopor(3)
-					.factualizacion(new Date())
-					.usuario("usuario123")
-					.rol_id(4)
-					.estado(true)
+			UserEntity userWill = UserEntity.builder()
+					.username("will")
+					.password("$2a$10$PGtfAd9ebxGlolpid10RXuP4Mj1sUwAiAqXjurN1AC7zVbTa4bggS")
+					.isEnabled(true)
+					.accountNoExpired(true)
+					.accountNoLocked(true)
+					.credentialNoExpired(true)
+					.roles(Set.of(roleDeveloper))
 					.build();
+
+			UserEntity userAaron = UserEntity.builder()
+					.username("aaron")
+					.password("$2a$10$PGtfAd9ebxGlolpid10RXuP4Mj1sUwAiAqXjurN1AC7zVbTa4bggS")
+					.isEnabled(true)
+					.accountNoExpired(true)
+					.accountNoLocked(true)
+					.credentialNoExpired(true)
+					.roles(Set.of(roleAdmin))
+					.build();
+
+			UserEntity userPollo = UserEntity.builder()
+					.username("pollo")
+					.password("$2a$10$PGtfAd9ebxGlolpid10RXuP4Mj1sUwAiAqXjurN1AC7zVbTa4bggS")
+					.isEnabled(true)
+					.accountNoExpired(true)
+					.accountNoLocked(true)
+					.credentialNoExpired(true)
+					.roles(Set.of(roleUser))
+					.build();
+
+			UserEntity userGallina = UserEntity.builder()
+					.username("gallina")
+					.password("$2a$10$PGtfAd9ebxGlolpid10RXuP4Mj1sUwAiAqXjurN1AC7zVbTa4bggS")
+					.isEnabled(true)
+					.accountNoExpired(true)
+					.accountNoLocked(true)
+					.credentialNoExpired(true)
+					.roles(Set.of(roleInvited))
+					.build();
+
+			userRepository.saveAll(List.of(userWill, userAaron, userPollo, userGallina));
 		};
 	}
 
